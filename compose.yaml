@@ -1,0 +1,39 @@
+services:
+  db:
+    image: postgres:15
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: tagsdb
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+  # adminer:
+  #   image: adminer
+  #   restart: always
+  #   ports:
+  #     - 8080:8080
+  #   depends_on:
+  #     - db
+
+  backend:
+    build: ./Backend
+    environment:
+      ConnectionStrings__DefaultConnection: "Host=db;Database=tagsdb;Username=postgres;Password=postgres"
+      ASPNETCORE_URLS: "http://+:8080"
+    depends_on:
+      - db
+    ports:
+      - "5000:8080"
+
+#   frontend:
+#     build: ./Frontend
+#     ports:
+#       - "4200:80"
+#     depends_on:
+#       - backend
+
+volumes:
+  db_data:
