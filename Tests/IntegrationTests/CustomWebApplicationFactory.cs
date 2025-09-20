@@ -16,18 +16,18 @@ public class CustomWebApplicationFactory : WebApplicationFactory<Program>
         {
             builder.ConfigureServices(services =>
             {
-                // usuń wszystkie stare rejestracje DbContext
-                var dbContextDescriptor = services.SingleOrDefault(
-                    d => d.ServiceType == typeof(DbContextOptions<AppDbContext>));
-                if (dbContextDescriptor != null)
-                    services.Remove(dbContextDescriptor);
+                // remove the app's ApplicationDbContext registration
+                var toRemove = services
+                   .Where(d =>
+                       d.ServiceType == typeof(AppDbContext) ||
+                       d.ServiceType == typeof(DbContextOptions<AppDbContext>) ||
+                       d.ServiceType == typeof(DbContextOptions))
+                   .ToList();
 
-                var dbDescriptor = services.SingleOrDefault(
-                    d => d.ServiceType == typeof(AppDbContext));
-                if (dbDescriptor != null)
-                    services.Remove(dbDescriptor);
+                foreach (var d in toRemove)
+                    services.Remove(d);
 
-                // dodaj InMemoryDb
+                // add InMemoryDb
                 services.AddDbContext<AppDbContext>(options =>
                     options.UseInMemoryDatabase("TestDb"));
             });
