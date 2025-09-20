@@ -1,31 +1,42 @@
 using WebApi.Extensions;
 
-var builder = WebApplication.CreateBuilder(args);
+namespace WebApi;
 
-builder.Services.AddApplicationServices(builder.Configuration);
-
-builder.Services.AddControllers();
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen(c =>
+public class Program
 {
-    c.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo
+    public static void Main(string[] args)
     {
-        Title = "Tags API",
-        Version = "v1",
-        Description = "API do zarz¹dzania tagami pobranymi z StackOverflow"
-    });
-});
+        var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddCors(opt =>
-    opt.AddPolicy("AllowAll", p => p.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod()));
+        builder.Services.AddApplicationServices(builder.Configuration);
 
-var app = builder.Build();
+        builder.Services.AddControllers();
+        builder.Services.AddEndpointsApiExplorer();
+        builder.Services.AddSwaggerGen(c =>
+        {
+            c.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo
+            {
+                Title = "Tags API",
+                Version = "v1",
+                Description = "API do zarz¹dzania tagami pobranymi z StackOverflow"
+            });
+        });
 
-app.UseSwagger();
-app.UseSwaggerUI();
-app.UseCors("AllowAll");
-app.MapControllers();
+        builder.Services.AddCors(opt =>
+            opt.AddPolicy("AllowAll", p => p.AllowAnyOrigin()
+                                            .AllowAnyHeader()
+                                            .AllowAnyMethod()));
 
-app.MigrateDatabase();
+        var app = builder.Build();
 
-app.Run();
+        app.UseSwagger();
+        app.UseSwaggerUI();
+        app.UseCors("AllowAll");
+        app.MapControllers();
+
+        if (!builder.Environment.IsEnvironment("Testing"))
+            app.MigrateDatabase();
+        
+        app.Run();
+    }
+}
