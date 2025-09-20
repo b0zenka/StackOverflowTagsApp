@@ -1,6 +1,6 @@
-# StackOverflow Tags Project
+# StackOverflow Tags App
 
-Projekt rekrutacyjny oparty o **.NET 9 (WebAPI)**, **Angular**, **PostgreSQL** oraz **Docker**.  
+Projekt oparty o **.NET 9 (WebAPI)**, **Angular**, **PostgreSQL** oraz **Docker**.  
 Celem projektu jest:
 - Pobranie co najmniej 1000 tagów z publicznego API StackOverflow i zapisanie ich w lokalnej bazie danych.
 - Obliczenie procentowego udziału każdego tagu w całej pobranej populacji.
@@ -23,8 +23,8 @@ docker compose up
 - **Dokumentacja API**: Swagger / OpenAPI
 
 ## Struktura projektu
-/Backend      -> WebAPI + logika aplikacyjna + EF Core
-/Frontend     -> Angular app
+- /Backend      -> WebAPI + logika aplikacyjna + EF Core
+- /Frontend     -> Angular app
 /docker-compose.yml
 
 ## Jak uruchomić?
@@ -36,7 +36,7 @@ docker compose up
     - 5432 – baza danych PostgreSQL
 
 2. Uruchomienie projektu
-W głównym katalogu projektu wykonaj:
+### W głównym katalogu projektu wykonaj:
 ```bash
 docker compose up
 ```
@@ -44,7 +44,7 @@ lub w tle
 ```bash
 docker compose up -d
 ```
-Docker automatycznie:
+### Docker automatycznie:
 - postawi bazę danych PostgreSQL,
 - zbuduje i uruchomi backend (ASP.NET Core WebAPI),
 - zbuduje i uruchomi frontend (Angular).
