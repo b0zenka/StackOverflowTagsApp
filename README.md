@@ -25,7 +25,8 @@ docker compose up
 ## Struktura projektu
 - /Backend      -> WebAPI + logika aplikacyjna + EF Core
 - /Frontend     -> Angular app
-/docker-compose.yml
+- /Tests
+- /docker-compose.yml
 
 ## Jak uruchomić?
 1. Wymagania
@@ -58,7 +59,7 @@ docker compose up -d
 - POST /api/tags/refresh – wymusza ponowne pobranie tagów z API StackOverflow
 
 ## Testy
-- Testy jednostkowe: backend (xUnit / NUnit)
+- Testy jednostkowe: backend (xUnit)
 - Testy integracyjne: backend API
 Uruchamiane lokalnie np.:
 ```bash
