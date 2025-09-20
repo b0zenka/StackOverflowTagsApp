@@ -1,0 +1,30 @@
+<div class="p-6 max-w-5xl mx-auto">
+  <h1 class="text-2xl font-bold mb-4">StackOverflow Tags</h1>
+
+  <button
+    (click)="refresh()"
+    class="mb-4 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+  >
+    🔄 Odśwież tagi
+  </button>
+
+  <app-loading-spinner *ngIf="loading"></app-loading-spinner>
+
+  <app-tag-table
+    *ngIf="!loading"
+    [rows]="rows"
+    [sortBy]="sortBy"
+    [order]="order"
+    (sortChange)="onSortChange($event)"
+  >
+  </app-tag-table>
+
+  <app-paginator
+    class="mt-2"
+    [page]="page"
+    [size]="size"
+    [total]="total"
+    (pageChange)="onPageChange($event)"
+  >
+  </app-paginator>
+</div>

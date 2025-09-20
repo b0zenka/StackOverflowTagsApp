@@ -1,0 +1,17 @@
+<div class="flex justify-between items-center mt-4">
+  <button
+    (click)="prev()"
+    [disabled]="page === 1"
+    class="px-3 py-1 bg-gray-200 rounded disabled:opacity-50"
+  >
+    ⏮️ Poprzednia
+  </button>
+  <span>Strona {{ page }} z {{ totalPages }}</span>
+  <button
+    (click)="next()"
+    [disabled]="page === totalPages"
+    class="px-3 py-1 bg-gray-200 rounded disabled:opacity-50"
+  >
+    Następna ⏭️
+  </button>
+</div>
