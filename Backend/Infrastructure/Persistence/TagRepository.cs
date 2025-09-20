@@ -22,7 +22,7 @@ public class TagRepository : ITagRepository
         query = sortBy switch
         {
             "name" => order == "asc" ? query.OrderBy(t => t.Name) : query.OrderByDescending(t => t.Name),
-            "percentage" => order == "asc"
+            "share" => order == "asc"
                 ? query.OrderBy(t => (double)t.Count / total)
                 : query.OrderByDescending(t => (double)t.Count / total),
             _ => order == "asc" ? query.OrderBy(t => t.Count) : query.OrderByDescending(t => t.Count)
@@ -36,7 +36,7 @@ public class TagRepository : ITagRepository
 
         foreach (var tag in tags)
         {
-            tag.Percentage = total > 0
+            tag.Share = total > 0
                 ? (double)tag.Count / total * 100.0
                 : 0;
         }

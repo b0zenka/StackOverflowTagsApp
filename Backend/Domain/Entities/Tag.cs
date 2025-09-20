@@ -10,5 +10,5 @@ public class Tag
     public DateTime LastUpdated { get; set; } = DateTime.UtcNow;
 
     [NotMapped]
-    public double Percentage { get; set; }
+    public double Share { get; set; }
 }
