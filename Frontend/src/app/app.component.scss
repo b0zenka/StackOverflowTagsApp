@@ -1,10 +1,8 @@
-/* Ogólne style dla layoutu aplikacji */
 :host {
   display: block;
   height: 100%;
 }
 
-/* Możesz dodać kolory brandowe, np.: */
 header {
   background: linear-gradient(to right, #2563eb, #1e40af);
 }

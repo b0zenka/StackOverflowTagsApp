@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';  // <-- potrzebne
+import { CommonModule } from '@angular/common';
 import { TagService } from '../../../../core/services/tag.service';
 import { Tag } from '../../../../core/models/tag.model';
-
-// Importy child komponentów
 import { TagTableComponent } from '../../components/tag-table/tag-table.component';
 import { PaginatorComponent } from '../../../../shared/components/paginator/paginator.component';
 import { LoadingSpinnerComponent } from '../../../../shared/components/loading-spinner/loading-spinner.component';
@@ -12,20 +10,20 @@ import { LoadingSpinnerComponent } from '../../../../shared/components/loading-s
   selector: 'app-tag-list-page',
   standalone: true,
   imports: [
-    CommonModule,            // <-- tutaj
+    CommonModule,
     TagTableComponent,
     PaginatorComponent,
-    LoadingSpinnerComponent
+    LoadingSpinnerComponent,
   ],
-  templateUrl: './tag-list-page.component.html'
+  templateUrl: './tag-list-page.component.html',
 })
 export class TagListPageComponent implements OnInit {
   rows: Tag[] = [];
   page = 1;
   size = 20;
   total = 0;
-  sortBy: 'name'|'count'|'share' = 'name';
-  order: 'asc'|'desc' = 'asc';
+  sortBy: 'name' | 'count' | 'share' = 'name';
+  order: 'asc' | 'desc' = 'asc';
   loading = false;
 
   constructor(private api: TagService) {}
@@ -37,12 +35,19 @@ export class TagListPageComponent implements OnInit {
   load() {
     this.loading = true;
     this.api.getTags(this.page, this.size, this.sortBy, this.order).subscribe({
-      next: r => { this.rows = r.data; this.total = r.total; this.loading = false; },
-      error: _ => this.loading = false
+      next: (r) => {
+        this.rows = r.data;
+        this.total = r.total;
+        this.loading = false;
+      },
+      error: (_) => (this.loading = false),
     });
   }
 
-  onSortChange(e: { sortBy: 'name'|'count'|'share'; order: 'asc'|'desc' }) {
+  onSortChange(e: {
+    sortBy: 'name' | 'count' | 'share';
+    order: 'asc' | 'desc';
+  }) {
     this.sortBy = e.sortBy;
     this.order = e.order;
     this.page = 1;
@@ -58,7 +63,7 @@ export class TagListPageComponent implements OnInit {
     this.loading = true;
     this.api.refreshTags().subscribe({
       next: () => this.load(),
-      error: _ => this.loading = false
+      error: (_) => (this.loading = false),
     });
   }
 }
